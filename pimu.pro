@@ -10,9 +10,11 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
+    openglcanvas.cpp \
     window.cpp
 
 HEADERS += \
+    openglcanvas.h \
     window.h
 
 FORMS += \

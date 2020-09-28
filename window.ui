@@ -28,7 +28,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QSlider" name="horizontalSlider_x">
+       <widget class="QSlider" name="xSlider">
         <property name="maximum">
          <number>360</number>
         </property>
@@ -58,7 +58,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QSlider" name="horizontalSlider_y">
+       <widget class="QSlider" name="ySlider">
         <property name="maximum">
          <number>360</number>
         </property>
@@ -88,7 +88,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QSlider" name="horizontalSlider_z">
+       <widget class="QSlider" name="zSlider">
         <property name="maximum">
          <number>360</number>
         </property>
