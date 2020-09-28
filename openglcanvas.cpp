@@ -30,3 +30,18 @@ void OpenGLCanvas::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
+
+void OpenGLCanvas::setXRotation(int angle)
+{
+    qDebug("X rotation: %d", angle);
+}
+
+void OpenGLCanvas::setYRotation(int angle)
+{
+    qDebug("Y rotation: %d", angle);
+}
+
+void OpenGLCanvas::setZRotation(int angle)
+{
+    qDebug("Z rotation: %d", angle);
+}
