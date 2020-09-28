@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QOpenGLWidget" name="openGLWidget"/>
+     <widget class="OpenGLCanvas" name="openGLCanvas"/>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_1">
@@ -134,6 +134,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>OpenGLCanvas</class>
+   <extends>QOpenGLWidget</extends>
+   <header>openglcanvas.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
