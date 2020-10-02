@@ -30,10 +30,13 @@
       <item>
        <widget class="QSlider" name="xSlider">
         <property name="maximum">
-         <number>360</number>
+         <number>5760</number>
+        </property>
+        <property name="singleStep">
+         <number>16</number>
         </property>
         <property name="pageStep">
-         <number>12</number>
+         <number>192</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -42,7 +45,7 @@
          <enum>QSlider::TicksAbove</enum>
         </property>
         <property name="tickInterval">
-         <number>12</number>
+         <number>192</number>
         </property>
        </widget>
       </item>
@@ -60,10 +63,13 @@
       <item>
        <widget class="QSlider" name="ySlider">
         <property name="maximum">
-         <number>360</number>
+         <number>5760</number>
+        </property>
+        <property name="singleStep">
+         <number>16</number>
         </property>
         <property name="pageStep">
-         <number>12</number>
+         <number>192</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -72,7 +78,7 @@
          <enum>QSlider::TicksAbove</enum>
         </property>
         <property name="tickInterval">
-         <number>12</number>
+         <number>192</number>
         </property>
        </widget>
       </item>
@@ -90,10 +96,13 @@
       <item>
        <widget class="QSlider" name="zSlider">
         <property name="maximum">
-         <number>360</number>
+         <number>5760</number>
+        </property>
+        <property name="singleStep">
+         <number>16</number>
         </property>
         <property name="pageStep">
-         <number>12</number>
+         <number>192</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -102,7 +111,7 @@
          <enum>QSlider::TicksAbove</enum>
         </property>
         <property name="tickInterval">
-         <number>12</number>
+         <number>192</number>
         </property>
        </widget>
       </item>
