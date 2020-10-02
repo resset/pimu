@@ -1,3 +1,7 @@
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
+#include <QMouseEvent>
+
 #include "openglcanvas.h"
 
 OpenGLCanvas::OpenGLCanvas(QWidget *parent)
@@ -21,19 +25,22 @@ void OpenGLCanvas::initializeGL()
 
     glClearColor(0.4f, 0.4f, 0.4f, 0.0f);
     glEnable(GL_DEPTH_TEST);
+    //glDepthFunc(GL_LESS);
 }
 
 void OpenGLCanvas::resizeGL(int w, int h)
 {
     m_projection.setToIdentity();
-    m_projection.perspective(60.0f, w / float(h), 0.01f, 1000.0f);
+//    m_projection.viewport(0.0f, 0.0f, w, h);
+//    m_projection.lookAt(QVector3D(0.0f, 1.0f, 3.0f),
+//                        QVector3D(0.0f, 0.0f, 0.0f),
+//                        QVector3D(0.0f, 1.0f, 0.0f));
+    m_projection.perspective(70.0f, GLfloat(w) / GLfloat(h), 0.01f, 100.0f);
 }
 
-void OpenGLCanvas::paintGL()
+void drawBox(void)
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     glBegin(GL_QUADS);
 
@@ -82,17 +89,87 @@ void OpenGLCanvas::paintGL()
     glEnd();
 }
 
+void OpenGLCanvas::paintGL()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glLoadIdentity();
+    glTranslatef(0.0, 0.0, 0.0);
+    glRotatef(xRotation, 1.0, 0.0, 0.0);
+    glRotatef(yRotation, 0.0, 1.0, 0.0);
+    glRotatef(zRotation, 0.0, 0.0, 1.0);
+
+    drawBox();
+}
+
+void OpenGLCanvas::mousePressEvent(QMouseEvent *event)
+{
+    lastPosition = event->pos();
+    xdiff = lastPosition.x() - yRotation;
+    ydiff = -lastPosition.y() + xRotation;
+    qInfo("XXX: %d, YYY: %d\n", event->x(), event->y());
+}
+
+void OpenGLCanvas::mouseMoveEvent(QMouseEvent *event)
+{
+//    int dx = event->x() - lastPosition.x();
+//    int dy = event->y() - lastPosition.y();
+
+    if (event->buttons() & Qt::LeftButton) {
+        qInfo("x: %d, y: %d\n", event->x(), event->y());
+
+        setXRotation(event->y() + xdiff);
+        setYRotation(event->x() - ydiff);
+    } else if (event->buttons() & Qt::RightButton) {
+//        setXRotation(xRotation + 8 * dy);
+//        setZRotation(zRotation + 8 * dx);
+    }
+
+    lastPosition = event->pos();
+}
+
+static void qNormalizeAngle(int &angle)
+{
+    while (angle < 0) {
+        angle += 360;
+    }
+    while (angle > 360) {
+        angle -= 360;
+    }
+}
+
 void OpenGLCanvas::setXRotation(int angle)
 {
+    //qNormalizeAngle(angle);
     qDebug("X rotation: %d", angle);
+
+    if (angle != xRotation) {
+        xRotation = angle;
+        //emit xRotationChanged(angle);
+        update();
+    }
 }
 
 void OpenGLCanvas::setYRotation(int angle)
 {
+    //qNormalizeAngle(angle);
     qDebug("Y rotation: %d", angle);
+
+    if (angle != yRotation) {
+        yRotation = angle;
+        //emit yRotationChanged(angle);
+        update();
+    }
 }
 
 void OpenGLCanvas::setZRotation(int angle)
 {
+    //qNormalizeAngle(angle);
     qDebug("Z rotation: %d", angle);
+
+    if (angle != zRotation) {
+        zRotation = angle;
+        //emit zRotationChanged(angle);
+        update();
+    }
 }
