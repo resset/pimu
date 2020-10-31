@@ -220,6 +220,9 @@ void OpenGLCanvas::mouseMoveEvent(QMouseEvent *event)
     } else if (event->buttons() & Qt::RightButton) {
         setXRotation(m_xRot + 8 * dy);
         setZRotation(m_zRot + 8 * dx);
+    } else if (event->buttons() & Qt::MidButton) {
+        setZRotation(m_xRot + 8 * dy);
+        setYRotation(m_yRot + 8 * dx);
     }
     m_lastPos = event->pos();
 }
