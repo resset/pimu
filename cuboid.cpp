@@ -4,7 +4,7 @@
 
 Cuboid::Cuboid()
 {
-    m_data.resize(2500 * 6);
+    m_data.resize(2500 * 9);
 
     const GLfloat x1 = +0.2f;
     const GLfloat y1 = -0.1f;
@@ -28,7 +28,10 @@ void Cuboid::add(const QVector3D &v, const QVector3D &n)
     *p++ = n.x();
     *p++ = n.y();
     *p++ = n.z();
-    m_count += 6;
+    *p++ = (float)(rand() % 100) / 100.0;
+    *p++ = (float)(rand() % 100) / 100.0;
+    *p++ = (float)(rand() % 100) / 100.0;
+    m_count += 9;
 }
 
 void Cuboid::quad(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2, GLfloat x3, GLfloat y3, GLfloat x4, GLfloat y4)

@@ -102,6 +102,7 @@ void OpenGLCanvas::initializeGL()
     m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shader.frag");
     m_program->bindAttributeLocation("vertex", 0);
     m_program->bindAttributeLocation("normal", 1);
+    m_program->bindAttributeLocation("color", 2);
     m_program->link();
 
     m_program->bind();
@@ -141,10 +142,13 @@ void OpenGLCanvas::setupVertexAttribs()
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
     f->glEnableVertexAttribArray(0);
     f->glEnableVertexAttribArray(1);
-    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat),
+    f->glEnableVertexAttribArray(2);
+    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat),
                              nullptr);
-    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat),
+    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat),
                              reinterpret_cast<void *>(3 * sizeof(GLfloat)));
+    f->glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat),
+                             reinterpret_cast<void *>(6 * sizeof(GLfloat)));
     m_cuboidVbo.release();
 }
 
@@ -154,7 +158,7 @@ void OpenGLCanvas::paintGL()
     glEnable(GL_DEPTH_TEST);
     // glDepthFunc(GL_LESS);
     glEnable(GL_CULL_FACE);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     m_world.setToIdentity();
     m_world.rotate(m_xRot / 16.0f, 1, 0, 0);
