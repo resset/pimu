@@ -14,9 +14,16 @@ public:
     int vertexCount() const { return m_count / 6; }
 
 private:
-    void quad(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2, GLfloat x3, GLfloat y3, GLfloat x4, GLfloat y4);
-    void extrude(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2);
-    void add(const QVector3D &v, const QVector3D &n);
+    void quad(GLfloat x1, GLfloat y1,
+              GLfloat x2, GLfloat y2,
+              GLfloat x3, GLfloat y3,
+              GLfloat x4, GLfloat y4,
+              const QColor &c1,
+              const QColor &c2);
+    void extrude(GLfloat x1, GLfloat y1,
+                 GLfloat x2, GLfloat y2,
+                 const QColor &c);
+    void add(const QVector3D &v, const QVector3D &n, const QColor &c);
 
     QVector<GLfloat> m_data;
     int m_count = 0;
