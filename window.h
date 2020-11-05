@@ -15,7 +15,11 @@ public:
     Window(QWidget *parent = nullptr);
     ~Window();
 
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
 private:
     Ui::Window *ui;
+    void menuPopulateSerialPorts();
 };
 #endif // WINDOW_H
