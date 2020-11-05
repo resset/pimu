@@ -134,12 +134,35 @@
     </property>
     <addaction name="actionE_xit"/>
    </widget>
+   <widget class="QMenu" name="menu_Connection">
+    <property name="title">
+     <string>&amp;Connection</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionSerial_port"/>
+    <addaction name="separator"/>
+    <addaction name="action_Disconnect"/>
+   </widget>
    <addaction name="menu_File"/>
+   <addaction name="menu_Connection"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionE_xit">
    <property name="text">
     <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="actionSerial_port">
+   <property name="text">
+    <string>&amp;Serial port</string>
+   </property>
+  </action>
+  <action name="action_Disconnect">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Disconnect</string>
    </property>
   </action>
  </widget>
