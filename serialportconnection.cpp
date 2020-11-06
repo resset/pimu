@@ -8,7 +8,7 @@ SerialPortConnection::SerialPortConnection(Ui::Window * ui) {
 
     updateSerialPortsUi();
 
-    connect(ui->actionDisconnect, &QAction::triggered, this, &SerialPortConnection::disconnect);
+    connect(ui->actionDisconnect, SIGNAL(triggered(bool)), this, SLOT(disconnect()));
 
     ui->statusbar->showMessage("Ready to connect");
 }
@@ -69,22 +69,28 @@ void SerialPortConnection::updateSerialPortsUi()
     for (i = sp.begin(); i != sp.end(); ++i) {
         QAction *qa = new QAction(i->systemLocation + " (SN: " + i->serialNumber + ")");
         qa->setCheckable(true);
+        qa->setData(i->systemLocation);
         serialPortActionList.append(qa);
 
         connect(serialPortActionList.last(), &QAction::triggered, this, &SerialPortConnection::connectTo);
+
         ui->menu_Connect_to->addAction(serialPortActionList.last());
     }
 }
 
 void SerialPortConnection::connectTo()
 {
+    QString device;
     QList<QAction*>::iterator i;
     for (i = serialPortActionList.begin(); i != serialPortActionList.end(); ++i) {
+        if ((*i)->isChecked()) {
+            device = (*i)->data().toString();
+        }
         (*i)->setEnabled(false);
     }
 
     ui->actionDisconnect->setEnabled(true);
-    ui->statusbar->showMessage("Connected to <TODO>");
+    ui->statusbar->showMessage("Connected to " + device);
 }
 
 void SerialPortConnection::disconnect()

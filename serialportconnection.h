@@ -11,11 +11,13 @@ class SerialPortConnection : public QObject
 public:
     SerialPortConnection(Ui::Window *ui);
 
+public slots:
+    void connectTo();
+    void disconnect();
+
 private:
     QList<SerialPort> getSerialPorts();
     void updateSerialPortsUi();
-    void connectTo();
-    void disconnect();
 
     Ui::Window *ui;
     QList<QAction*> serialPortActionList;
