@@ -15,6 +15,9 @@ public slots:
     void connectTo();
     void disconnect();
 
+signals:
+    void statusChanged(QString status);
+
 private:
     QList<SerialPort> getSerialPorts();
     void updateSerialPortsUi();

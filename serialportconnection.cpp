@@ -9,8 +9,6 @@ SerialPortConnection::SerialPortConnection(Ui::Window * ui) {
     updateSerialPortsUi();
 
     connect(ui->actionDisconnect, SIGNAL(triggered(bool)), this, SLOT(disconnect()));
-
-    ui->statusbar->showMessage("Ready to connect");
 }
 
 QList<SerialPort> SerialPortConnection::getSerialPorts()
@@ -90,12 +88,12 @@ void SerialPortConnection::connectTo()
     }
 
     ui->actionDisconnect->setEnabled(true);
-    ui->statusbar->showMessage("Connected to " + device);
+    emit statusChanged("Connected to " + device);
 }
 
 void SerialPortConnection::disconnect()
 {
     ui->actionDisconnect->setEnabled(false);
     updateSerialPortsUi();
-    ui->statusbar->showMessage("Disconnected");
+    emit statusChanged("Disconnected");
 }

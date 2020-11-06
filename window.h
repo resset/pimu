@@ -17,6 +17,9 @@ public:
     Window(QWidget *parent = nullptr);
     ~Window();
 
+public slots:
+    void setStatus(QString status);
+
 protected:
     void closeEvent(QCloseEvent *event) override;
 
@@ -24,6 +27,7 @@ private:
     void closeWindow();
 
     Ui::Window *ui;
+    QLabel *statusLabel;
     SerialPortConnection *sp;
 };
 #endif // WINDOW_H

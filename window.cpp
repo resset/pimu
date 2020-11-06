@@ -7,13 +7,19 @@ Window::Window(QWidget *parent)
 {
     ui->setupUi(this);
 
+    statusLabel = new QLabel();
+    ui->statusbar->addWidget(statusLabel);
+    statusLabel->setText("Ready to connect");
+
+    this->sp = new SerialPortConnection(ui);
+
     connect(ui->actionExit, &QAction::triggered, this, &Window::closeWindow);
 
     connect(ui->openGLCanvas, SIGNAL(xRotationChanged(int)), ui->xSlider, SLOT(setValue(int)));
     connect(ui->openGLCanvas, SIGNAL(yRotationChanged(int)), ui->ySlider, SLOT(setValue(int)));
     connect(ui->openGLCanvas, SIGNAL(zRotationChanged(int)), ui->zSlider, SLOT(setValue(int)));
 
-    this->sp = new SerialPortConnection(ui);
+    connect(this->sp, SIGNAL(statusChanged(QString)), this, SLOT(setStatus(QString)));
 }
 
 Window::~Window()
@@ -33,4 +39,9 @@ void Window::closeWindow()
     qDebug("app closed");
     ui->openGLCanvas->cleanup();
     QApplication::quit();
+}
+
+void Window::setStatus(QString status)
+{
+    statusLabel->setText(status);
 }
