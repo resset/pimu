@@ -12,11 +12,15 @@ SOURCES += \
     cuboid.cpp \
     main.cpp \
     openglcanvas.cpp \
+    serialport.cpp \
+    serialportconnection.cpp \
     window.cpp
 
 HEADERS += \
     cuboid.h \
     openglcanvas.h \
+    serialport.h \
+    serialportconnection.h \
     window.h
 
 FORMS += \

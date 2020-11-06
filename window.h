@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "serialportconnection.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Window; }
 QT_END_NAMESPACE
@@ -19,7 +21,9 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private:
+    void closeWindow();
+
     Ui::Window *ui;
-    void menuPopulateSerialPorts();
+    SerialPortConnection *sp;
 };
 #endif // WINDOW_H
