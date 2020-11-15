@@ -25,7 +25,6 @@ private slots:
 private:
     QSerialPort *m_serialPort = nullptr;
     QByteArray m_readData;
-    QTextStream m_standardOutput;
 };
 
 #endif // SERIALPORTREADER_H
