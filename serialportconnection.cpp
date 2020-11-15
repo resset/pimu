@@ -63,8 +63,10 @@ void SerialPortConnection::updateSerialPortsUi()
     QList<SerialPort> sp = getSerialPorts();
 
     // Create new actions
-    QList<SerialPort>::iterator i;
-    for (i = sp.begin(); i != sp.end(); ++i) {
+    for (QList<SerialPort>::iterator i = sp.begin();
+         i != sp.end();
+         ++i)
+    {
         QAction *qa = new QAction(i->systemLocation + " (SN: " + i->serialNumber + ")");
         qa->setCheckable(true);
         qa->setData(i->systemLocation);
@@ -79,8 +81,11 @@ void SerialPortConnection::updateSerialPortsUi()
 void SerialPortConnection::connectTo()
 {
     QString serialPortName;
-    QList<QAction*>::iterator i;
-    for (i = serialPortActionList.begin(); i != serialPortActionList.end(); ++i) {
+
+    for (QList<QAction*>::iterator i = serialPortActionList.begin();
+         i != serialPortActionList.end();
+         ++i)
+    {
         if ((*i)->isChecked()) {
             serialPortName = (*i)->data().toString();
         }
