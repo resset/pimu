@@ -1,11 +1,13 @@
 #include <QSerialPortInfo>
 
 #include "serialportconnection.h"
+#include "serialparser.h"
 
 SerialPortConnection::SerialPortConnection(Ui::Window * ui) {
     this->ui = ui;
 
-    this->serialPort = new QSerialPort();
+    serialPort = new QSerialPort();
+    serialParser = new SerialParser();
 
     updateSerialPortsUi();
 
@@ -14,6 +16,7 @@ SerialPortConnection::SerialPortConnection(Ui::Window * ui) {
 
 SerialPortConnection::~SerialPortConnection() {
     delete serialPort;
+    delete serialParser;
     if (serialPortReader != nullptr) {
         delete serialPortReader;
     }
@@ -107,6 +110,7 @@ void SerialPortConnection::connectTo()
                            .arg(serialPort->errorString()));
     } else {
         serialPortReader = new SerialPortReader(serialPort);
+        connect(serialPortReader, SIGNAL(packetReceived(QByteArray)), serialParser, SLOT(parsePacket(QByteArray)));
 
         ui->actionDisconnect->setEnabled(true);
         emit statusChanged("Connected to " + serialPortName);

@@ -21,7 +21,8 @@ void SerialPortReader::handleReadyRead()
     if (m_serialPort->canReadLine()) {
         QByteArray line = m_serialPort->readLine(1000);
         m_readData.append(line);
-        qInfo() << qUtf8Printable(QString::fromUtf8(line));
+
+        emit packetReceived(line);
     }
 }
 

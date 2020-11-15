@@ -13,7 +13,7 @@ Window::Window(QWidget *parent)
 
     ui->menu_Connect_to->setIcon(QIcon::fromTheme("network-connect"));
 
-    this->sp = new SerialPortConnection(ui);
+    sp = new SerialPortConnection(ui);
 
     connect(ui->actionExit, &QAction::triggered, this, &Window::closeWindow);
 
@@ -21,7 +21,11 @@ Window::Window(QWidget *parent)
     connect(ui->openGLCanvas, SIGNAL(yRotationChanged(int)), ui->ySlider, SLOT(setValue(int)));
     connect(ui->openGLCanvas, SIGNAL(zRotationChanged(int)), ui->zSlider, SLOT(setValue(int)));
 
-    connect(this->sp, SIGNAL(statusChanged(QString)), this, SLOT(setStatus(QString)));
+    connect(sp->serialParser, SIGNAL(xRotDataArrived(int)), ui->openGLCanvas, SLOT(setXRotation(int)));
+    connect(sp->serialParser, SIGNAL(yRotDataArrived(int)), ui->openGLCanvas, SLOT(setYRotation(int)));
+    connect(sp->serialParser, SIGNAL(zRotDataArrived(int)), ui->openGLCanvas, SLOT(setZRotation(int)));
+
+    connect(sp, SIGNAL(statusChanged(QString)), this, SLOT(setStatus(QString)));
 }
 
 Window::~Window()

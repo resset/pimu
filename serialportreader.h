@@ -1,14 +1,8 @@
 #ifndef SERIALPORTREADER_H
 #define SERIALPORTREADER_H
 
-#include <QByteArray>
 #include <QSerialPort>
-#include <QTextStream>
-#include <QTimer>
-
-QT_BEGIN_NAMESPACE
-
-QT_END_NAMESPACE
+#include <QByteArray>
 
 class SerialPortReader : public QObject
 {
@@ -21,6 +15,9 @@ public:
 private slots:
     void handleReadyRead();
     void handleError(QSerialPort::SerialPortError error);
+
+signals:
+    void packetReceived(QByteArray packet);
 
 private:
     QSerialPort *m_serialPort = nullptr;

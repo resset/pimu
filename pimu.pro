@@ -12,6 +12,7 @@ SOURCES += \
     cuboid.cpp \
     main.cpp \
     openglcanvas.cpp \
+    serialparser.cpp \
     serialport.cpp \
     serialportconnection.cpp \
     serialportreader.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     cuboid.h \
     openglcanvas.h \
+    serialparser.h \
     serialport.h \
     serialportconnection.h \
     serialportreader.h \

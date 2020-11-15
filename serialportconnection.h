@@ -6,6 +6,7 @@
 #include "ui_window.h"
 #include "serialport.h"
 #include "serialportreader.h"
+#include "serialparser.h"
 
 class SerialPortConnection : public QObject
 {
@@ -14,6 +15,8 @@ class SerialPortConnection : public QObject
 public:
     SerialPortConnection(Ui::Window *ui);
     ~SerialPortConnection();
+
+    SerialParser *serialParser;
 
 public slots:
     void connectTo();
