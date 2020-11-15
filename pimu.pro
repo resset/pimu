@@ -14,6 +14,7 @@ SOURCES += \
     openglcanvas.cpp \
     serialport.cpp \
     serialportconnection.cpp \
+    serialportreader.cpp \
     window.cpp
 
 HEADERS += \
@@ -21,6 +22,7 @@ HEADERS += \
     openglcanvas.h \
     serialport.h \
     serialportconnection.h \
+    serialportreader.h \
     window.h
 
 FORMS += \

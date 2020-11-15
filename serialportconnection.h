@@ -1,8 +1,11 @@
 #ifndef SERIALPORTCONNECTION_H
 #define SERIALPORTCONNECTION_H
 
+#include <QSerialPort>
+
 #include "ui_window.h"
 #include "serialport.h"
+#include "serialportreader.h"
 
 class SerialPortConnection : public QObject
 {
@@ -10,6 +13,7 @@ class SerialPortConnection : public QObject
 
 public:
     SerialPortConnection(Ui::Window *ui);
+    ~SerialPortConnection();
 
 public slots:
     void connectTo();
@@ -24,7 +28,8 @@ private:
 
     Ui::Window *ui;
     QList<QAction*> serialPortActionList;
-    bool connected;
+    QSerialPort *serialPort;
+    SerialPortReader *serialPortReader = nullptr;
 };
 
 #endif // SERIALPORTCONNECTION_H

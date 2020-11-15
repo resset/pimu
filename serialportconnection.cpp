@@ -4,11 +4,19 @@
 
 SerialPortConnection::SerialPortConnection(Ui::Window * ui) {
     this->ui = ui;
-    this->connected = false;
+
+    this->serialPort = new QSerialPort();
 
     updateSerialPortsUi();
 
     connect(ui->actionDisconnect, SIGNAL(triggered(bool)), this, SLOT(disconnect()));
+}
+
+SerialPortConnection::~SerialPortConnection() {
+    delete serialPort;
+    if (serialPortReader != nullptr) {
+        delete serialPortReader;
+    }
 }
 
 QList<SerialPort> SerialPortConnection::getSerialPorts()
@@ -47,14 +55,6 @@ QList<SerialPort> SerialPortConnection::getSerialPorts()
 
 void SerialPortConnection::updateSerialPortsUi()
 {
-    //Port: ttyUSB0
-    //Location: /dev/ttyUSB0
-    //Description: FT230X Basic UART
-    //Manufacturer: FTDI
-    //Serial number: D307O726
-    //Vendor Identifier: 403
-    //Product Identifier: 6015
-
     // Remove old actions
     ui->menu_Connect_to->clear();
     serialPortActionList.clear();
@@ -78,22 +78,43 @@ void SerialPortConnection::updateSerialPortsUi()
 
 void SerialPortConnection::connectTo()
 {
-    QString device;
+    QString serialPortName;
     QList<QAction*>::iterator i;
     for (i = serialPortActionList.begin(); i != serialPortActionList.end(); ++i) {
         if ((*i)->isChecked()) {
-            device = (*i)->data().toString();
+            serialPortName = (*i)->data().toString();
         }
         (*i)->setEnabled(false);
     }
 
-    ui->actionDisconnect->setEnabled(true);
-    emit statusChanged("Connected to " + device);
+    serialPort->setPortName(serialPortName);
+    serialPort->setBaudRate(QSerialPort::Baud115200);
+    serialPort->setDataBits(QSerialPort::Data8);
+    serialPort->setParity(QSerialPort::NoParity);
+    serialPort->setStopBits(QSerialPort::OneStop);
+    serialPort->setFlowControl(QSerialPort::NoFlowControl);
+
+    if (!serialPort->open(QIODevice::ReadWrite)) {
+        ui->actionDisconnect->setEnabled(false);
+        updateSerialPortsUi();
+        emit statusChanged(QString("Failed to open port %1, error: %2")
+                           .arg(serialPortName)
+                           .arg(serialPort->errorString()));
+    } else {
+        serialPortReader = new SerialPortReader(serialPort);
+
+        ui->actionDisconnect->setEnabled(true);
+        emit statusChanged("Connected to " + serialPortName);
+    }
 }
 
 void SerialPortConnection::disconnect()
 {
-    ui->actionDisconnect->setEnabled(false);
-    updateSerialPortsUi();
-    emit statusChanged("Disconnected");
+    if (serialPort->isOpen()) {
+        serialPort->close();
+        delete serialPortReader;
+        ui->actionDisconnect->setEnabled(false);
+        updateSerialPortsUi();
+        emit statusChanged("Disconnected");
+    }
 }
