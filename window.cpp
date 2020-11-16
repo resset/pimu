@@ -36,13 +36,12 @@ Window::~Window()
 void Window::closeEvent(QCloseEvent *event)
 {
     (void)event;
-    qDebug("close event");
     closeWindow();
 }
 
 void Window::closeWindow()
 {
-    qDebug("app closed");
+    sp->disconnect();
     ui->openGLCanvas->cleanup();
     QApplication::quit();
 }
