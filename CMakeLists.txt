@@ -28,9 +28,9 @@ set(SOURCES
     serialportreader.cpp serialportreader.h
     window.cpp window.h
 )
-add_executable(pimu ${SOURCES} ${SHADERS_RES})
+add_executable(${PROJECT_NAME} ${SOURCES} ${SHADERS_RES})
 
-target_link_libraries(pimu
+target_link_libraries(${PROJECT_NAME}
     PRIVATE
     Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::OpenGL
