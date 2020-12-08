@@ -16,6 +16,8 @@ set(QT_LIBRARIES Gui OpenGL OpenGLExtensions SerialPort Widgets)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS ${QT_LIBRARIES} REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_LIBRARIES} REQUIRED)
 
+qt_add_resources(SHADERS_RES shaders.qrc)
+
 set(SOURCES
     cuboid.cpp cuboid.h
     main.cpp
@@ -26,8 +28,7 @@ set(SOURCES
     serialportreader.cpp serialportreader.h
     window.cpp window.h
 )
-qt_add_resources(SOURCES resources.qrc)
-add_executable(pimu ${SOURCES})
+add_executable(pimu ${SOURCES} ${SHADERS_RES})
 
 target_link_libraries(pimu
     PRIVATE
